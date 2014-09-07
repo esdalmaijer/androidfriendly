@@ -9,7 +9,7 @@ ABOUT
 
 The NumPy and Matplotlib packages are absolutely awesome, and two
 of my bestest friends. BUT! When compiling code to an Android .pkg
-using the [PyGame subset for Android](), they don't quite play nice.
+using the [PyGame subset for Android](http://pygame.renpy.org/index.html), they don't quite play nice.
 
 Therefore, this project aims to provide an alternative to NumPy and
 Matplotlib that is both slower and worse than the originals, but that
@@ -22,7 +22,7 @@ AIMS
 ----
 
 The (initial) aim is simple: to provide an alternative to all
-functions used in [CancellationTools](). But feel free to help out if
+functions used in [CancellationTools](https://github.com/esdalmaijer/CancellationTools). But feel free to help out if
 you see a potential implementation of these modules for other projects
 as well.
 
@@ -111,7 +111,8 @@ which works perfectly fine in NumPy:
 array([-4, -2,  0,  2])
 ~~~
 
-But not so much in Android-friendly NumPy:
+But, of course, not so much in Android-friendly NumPy (where 'arrays'
+are in fact lists):
 
 ~~~ .python
 >>> a = numpy.arange(1,5,1)
