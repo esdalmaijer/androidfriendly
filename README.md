@@ -26,102 +26,70 @@ functions used in [CancellationTools](https://github.com/esdalmaijer/Cancellatio
 you see a potential implementation of these modules for other projects
 as well.
 
+Currently, this means that arrays are usually assumed to be a vector;
+matrices (vectors of vectors of vectors etc.) are not supported in
+all functions yet.
+
 
 USAGE
 -----
 
 ~~~ .python
+# try importing android
 try:
 	import android
 except ImportError:
 	android = None
 
+# if android could not be imported, we are not on
+# android, so we do not have to bother with importing
+# android-friendly numpy
 if android == None:
 	import numpy
 else:
 	import androidfriendly.numpy as numpy
 ~~~
 
-
-ALTERNATIVE USAGE
------------------
-
-Not all function inputs can be correctly captured in pure Python, e.g.
-NumPy's *where* function:
+You can create arrays as you would do using NumPy:
 
 ~~~ .python
->>> import numpy
->>> test = numpy.arange(5)
->>> test == 3
-array([False, False, False,  True, False], dtype=bool)
->>> numpy.where(test == 3)
-(array([3]),)
+>>> a = numpy.array([1,2,3])
+>>> b = numpy.array([3,2,1])
 ~~~
 
-The equivalent using lists, would result in the following:
+Calculations are the same:
 
 ~~~ .python
->>> test = range(5)
->>> test == 3
-False
-~~~
+>>> a + b
+[4, 4, 4]
 
-Therefore, the *where* function's input is slightly different in the
-Android-friendly libraries:
-
-~~~ .python
->>> import androidfriendly.numpy as numpy
->>> test = numpy.arange(5)
->>> test == 3
-False
->>> numpy.where(test, '==', 3)
-[[3]]
-~~~
-
-This means there will have to be some re-writing of code to make Android
-apps work with the Android-friendly NumPy:
-
-~~~ .python
-try:
-	import android
-except ImportError:
-	android = None
-
-if android == None:
-	import numpy
-else:
-	import androidfriendly.numpy as numpy
-
-test = numpy.arange(5)
-
-if android == None:
-	print(numpy.where(test == 3))
-else:
-	print(numpy.where(test, '==', 3))
-~~~
-
-If anybody knows a brilliant solution to this, please do let me know!
-Another problem, that comes down to the same issue, is array arithmetic,
-which works perfectly fine in NumPy:
-
-~~~ .python
->>> a = numpy.arange(1,5,1)
->>> b = numpy.arange(5,1,-1)
 >>> a - b
-array([-4, -2,  0,  2])
+[-2, 0, 2]
+
+>>> a * b
+[3, 4, 3]
+
+>>> a / b
+[0.3333333333333333, 1.0, 3.0]
+
+>>> a ** b
+[1, 4, 3]
 ~~~
 
-But, of course, not so much in Android-friendly NumPy (where 'arrays'
-are in fact lists):
+And so are comparisons:
 
 ~~~ .python
->>> a = numpy.arange(1,5,1)
->>> b = numpy.arange(5,1,-1)
->>> a - b
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-TypeError: unsupported operand type(s) for -: 'list' and 'list'
-~~~~
-
-Again, brilliant solutions to this problem are very welcome!
+>>> a < b
+[True, False, False]
+>>> a <= b
+[True, True, False]
+>>> a == b
+[False, True, False]
+>>> a != b
+[True, False, True]
+>>> a > b
+[False, False, True]
+>>> a >= b
+[False, True, True]
+~~~
 

@@ -19,6 +19,190 @@ min = min
 
 
 # # # # #
+# ARRAY CLASS
+
+class Array(list):
+	
+	# RICH COMPARISONS
+	
+	def __lt__(self, y):
+		
+		outl = []
+		if self.__len__() == len(y):
+			for i in range(self.__len__()):
+				outl.append(self.__getitem__(i) < y[i])
+		else:
+			raise Exception("ERROR in androidfriendly.numpy.Array.__lt__: \
+				vectors must be same length!")
+		return outl
+	
+	def __le__(self, y):
+		
+		outl = []
+		if self.__len__() == len(y):
+			for i in range(self.__len__()):
+				outl.append(self.__getitem__(i) <= y[i])
+		else:
+			raise Exception("ERROR in androidfriendly.numpy.Array.__le__: \
+				vectors must be same length!")
+		return outl
+	
+	def __eq__(self, y):
+		
+		outl = []
+		if self.__len__() == len(y):
+			for i in range(self.__len__()):
+				outl.append(self.__getitem__(i) == y[i])
+		else:
+			raise Exception("ERROR in androidfriendly.numpy.Array.__eq__: \
+				vectors must be same length!")
+		return outl
+	
+	def __ne__(self, y):
+		
+		outl = []
+		if self.__len__() == len(y):
+			for i in range(self.__len__()):
+				outl.append(self.__getitem__(i) <> y[i])
+		else:
+			raise Exception("ERROR in androidfriendly.numpy.Array.__ne__: \
+				vectors must be same length!")
+		return outl
+	
+	def __gt__(self, y):
+		
+		outl = []
+		if self.__len__() == len(y):
+			for i in range(self.__len__()):
+				outl.append(self.__getitem__(i) > y[i])
+		else:
+			raise Exception("ERROR in androidfriendly.numpy.Array.__gt__: \
+				vectors must be same length!")
+		return outl
+	
+	def __ge__(self, y):
+		
+		outl = []
+		if self.__len__() == len(y):
+			for i in range(self.__len__()):
+				outl.append(self.__getitem__(i) >= y[i])
+		else:
+			raise Exception("ERROR in androidfriendly.numpy.Array.__ge__: \
+				vectors must be same length!")
+		return outl
+	
+	# ARITHMETIC OPERATORS
+	
+	def __add__(self, y):
+		
+		outl = []
+		if self.__len__() == len(y):
+			for i in range(self.__len__()):
+				outl.append(self.__getitem__(i) + y[i])
+		else:
+			raise Exception("ERROR in androidfriendly.numpy.Array.__add__: \
+				vectors must be same length!")
+		return outl
+
+	def __div__(self, y):
+		
+		outl = []
+		if self.__len__() == len(y):
+			for i in range(self.__len__()):
+				outl.append(self.__getitem__(i) / y[i])
+		else:
+			raise Exception("ERROR in androidfriendly.numpy.Array.__div__: \
+				vectors must be same length!")
+		return outl
+	
+	def __floordiv__(self, y):
+		
+		outl = []
+		if self.__len__() == len(y):
+			for i in range(self.__len__()):
+				outl.append(self.__getitem__(i).__floordiv__(y[i]))
+		else:
+			raise Exception("ERROR in androidfriendly.numpy.Array.__floordiv__: \
+				vectors must be same length!")
+		return outl
+	
+	def __mod__(self, y):
+		
+		outl = []
+		if self.__len__() == len(y):
+			for i in range(self.__len__()):
+				outl.append(self.__getitem__(i) % y[i])
+		else:
+			raise Exception("ERROR in androidfriendly.numpy.Array.__mod__: \
+				vectors must be same length!")
+		return outl
+	
+	def __mul__(self, y):
+		
+		outl = []
+		if self.__len__() == len(y):
+			for i in range(self.__len__()):
+				outl.append(self.__getitem__(i) * y[i])
+		else:
+			raise Exception("ERROR in androidfriendly.numpy.Array.__mul__: \
+				vectors must be same length!")
+		return outl
+	
+	def __neg__(self):
+		
+		outl = []
+		for i in range(self.__len__()):
+			if self.__getitem__(i) > 0:
+				outl.append(self.__getitem__(i) * -1)
+			else:
+				outl.append(self.__getitem__(i))
+		return outl
+
+	def __pos__(self):
+		
+		outl = []
+		for i in range(self.__len__()):
+			if self.__getitem__(i) < 0:
+				outl.append(self.__getitem__(i) * -1)
+			else:
+				outl.append(self.__getitem__(i))
+		return outl
+	
+	def __pow__(self, y):
+		
+		outl = []
+		if self.__len__() == len(y):
+			for i in range(self.__len__()):
+				outl.append(self.__getitem__(i) ** y[i])
+		else:
+			raise Exception("ERROR in androidfriendly.numpy.Array.__pow__: \
+				vectors must be same length!")
+		return outl
+	
+	def __sub__(self, y):
+		
+		outl = []
+		if self.__len__() == len(y):
+			for i in range(self.__len__()):
+				outl.append(self.__getitem__(i) - y[i])
+		else:
+			raise Exception("ERROR in androidfriendly.numpy.Array.__sub__: \
+				vectors must be same length!")
+		return outl
+	
+	def __truediv__(self, y):
+		
+		outl = []
+		if self.__len__() == len(y):
+			for i in range(self.__len__()):
+				outl.append(self.__getitem__(i) / float(y[i]))
+		else:
+			raise Exception("ERROR in androidfriendly.numpy.Array.__mul__: \
+				vectors must be same length!")
+		return outl
+
+
+# # # # #
 # RE-DEFINITIONS
 
 def arange(start, stop=None, step=1):
@@ -42,12 +226,12 @@ def argmin(l):
 
 def array(l):
 	
-	return l
+	return Array(l)
 
 
 def asaray(l):
 	
-	return l
+	return Array(l)
 	
 
 def diff(l):
@@ -229,14 +413,12 @@ def size(l):
 	return c
 	
 
-def where(l, condition_operator, value):
+def where(conditional):
 	
 	outl = []
-	for i in range(len(l)):
-		exec("b = %f %s %f" % (l[i], condition_operator, value))
-		if b:
+	for i in range(len(conditional)):
+		if conditional[i]:
 			outl.append(i)
-	
 	return [outl]
 
 
